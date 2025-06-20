@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    if (!response.ok) {
 	        throw new Error('Failed to fetch orders');
 	    }
+	    console.log(response);
             appState.orders = await response.json();
             renderOrders(appState.orders);
             // Attach a single event listener to the container
