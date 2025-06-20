@@ -1,0 +1,356 @@
+/* --- General Setup & Mobile-First Base Styles --- */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #7f8c8d;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --light-gray: #f4f6f9;
+    --dark-gray: #2c3e50;
+    --text-color: #333;
+    --border-color: #dfe6e9;
+    --body-padding-bottom: 80px; /* Space for bottom nav */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-bottom: var(--body-padding-bottom); /* Prevent content from hiding under bottom nav */
+}
+
+#app-container {
+    padding: 15px;
+}
+
+.page {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Mobile Navigation (Bottom Bar) --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    height: 60px;
+    z-index: 1000;
+}
+.bottom-nav .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--secondary-color);
+    flex-grow: 1;
+    height: 100%;
+}
+.bottom-nav .nav-link.active { color: var(--primary-color); }
+.bottom-nav .nav-link svg { width: 24px; height: 24px; }
+.bottom-nav .nav-link span { font-size: 12px; margin-top: 4px; }
+.desktop-nav { display: none; } /* Hide on mobile */
+#logout-btn { display: none; }
+
+/* --- Buttons & Forms --- */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+.btn:hover { background-color: var(--secondary-color); }
+.btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+.btn-secondary { background-color: var(--secondary-color); }
+.btn-secondary:hover { background-color: #95a5a6; }
+
+.form-group { margin-bottom: 20px; }
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 16px;
+}
+.form-group input:disabled { background-color: #ecf0f1; }
+.form-actions { margin-top: 20px; }
+.form-actions .btn:not(:first-child) { margin-top: 10px; }
+.error-message { color: var(--danger-color); text-align: center; margin-top: 15px; }
+
+/* --- Login Page --- */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.login-container h1 { text-align: center; margin-bottom: 25px; color: var(--dark-gray); }
+
+/* --- Dashboard & Order Cards --- */
+/* --- ORDER CARD STYLES (NEW) --- */
+.order-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-left: 5px solid var(--secondary-color);
+    transition: box-shadow 0.3s ease;
+}
+.order-card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Status Colors */
+.order-card.status-completed { border-left-color: var(--success-color); }
+.order-card.status-partially_paid { border-left-color: var(--warning-color); }
+.order-card.status-pending { border-left-color: var(--danger-color); }
+
+/* Card Summary (The part that is always visible) */
+.card-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+}
+.summary-info h3 {
+    font-size: 1.1rem;
+    margin: 0 0 4px 0;
+}
+.summary-info .due {
+    font-weight: bold;
+    color: var(--danger-color);
+}
+.status-completed .summary-info .due {
+    color: var(--success-color);
+}
+
+.summary-status {
+    text-align: right;
+}
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: capitalize;
+    background-color: var(--secondary-color);
+    display: block;
+}
+.status-completed .status-badge { background-color: var(--success-color); }
+.status-partially_paid .status-badge { background-color: var(--warning-color); }
+.status-pending .status-badge { background-color: var(--danger-color); }
+
+.expand-icon {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    transition: transform 0.4s ease;
+}
+.order-card.expanded .expand-icon {
+    transform: rotate(180deg);
+}
+
+/* Card Details (The expandable part) */
+.card-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    padding: 0 15px; /* Padding is 0 when collapsed */
+    border-top: 1px solid transparent; /* Prepare for border transition */
+}
+.order-card.expanded .card-details {
+    max-height: 500px; /* A large enough value to show all content */
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.card-details p { margin: 0 0 10px; }
+.card-details p:last-child { margin-bottom: 0; }
+.card-details strong { color: var(--dark-gray); }
+.totals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    font-weight: bold;
+}
+.card-footer {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+.card-footer .btn {
+    width: 100%;
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+.success-message {
+    width: 100%;
+    text-align: center;
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+/* --- Order Form --- */
+.order-form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.form-step { display: none; }
+.form-step.active { display: block; animation: fadeIn 0.5s; }
+#items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+#items-table thead { display: none; } /* Hide on mobile, show on desktop */
+#items-table tr {
+    display: block;
+    margin-bottom: 15px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+#items-table td {
+    display: block;
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+#items-table td:last-child { border-bottom: none; }
+#items-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+#items-table .item-quantity { max-width: 80px; text-align: right; float: right; }
+#items-table .item-total { font-weight: bold; color: var(--primary-color); }
+#review-details {
+    padding: 15px;
+    background: var(--light-gray);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* --- Update Payment Modal --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s;
+}
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+}
+.modal-content h3 { margin-bottom: 20px; }
+.modal-info { font-weight: bold; color: var(--primary-color); font-size: 18px; }
+
+
+/* --- Desktop Styles (Tablet and up) --- */
+@media (min-width: 768px) {
+    body {
+        padding-bottom: 0; /* Remove bottom padding */
+    }
+    .bottom-nav {
+        display: none; /* Hide bottom nav on desktop */
+    }
+    .desktop-nav {
+        display: flex; /* Show desktop nav */
+        background-color: var(--dark-gray);
+        color: white;
+        padding: 0 40px;
+        align-items: center;
+        height: 60px;
+    }
+    .desktop-nav h1 { flex-grow: 1; }
+    .desktop-nav .nav-links a { padding: 20px 15px; border-radius: 0; color: white; text-decoration: none; transition: background-color 0.2s; }
+    .desktop-nav .nav-links a:hover, .desktop-nav .nav-links a.active { background-color: var(--primary-color); }
+    #logout-btn { display: block; margin-left: 20px; width: auto; }
+
+    #app-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+    .form-actions { display: flex; justify-content: space-between; gap: 15px; }
+    .form-actions .btn { width: auto; flex-grow: 1; }
+    .form-actions .btn:not(:first-child) { margin-top: 0; }
+
+    /* Restore table layout on desktop */
+    #items-table thead { display: table-header-group; }
+    #items-table tr { display: table-row; box-shadow: none; border-radius: 0; border: none; }
+    #items-table tr:nth-child(even) { background-color: var(--light-gray); }
+    #items-table td { display: table-cell; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
+    #items-table td::before { display: none; }
+    #items-table td:nth-child(3), #items-table td:nth-child(4) { text-align: right; }
+    #items-table .item-quantity { float: none; }
+}

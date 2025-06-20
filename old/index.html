@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="login-page" class="page active">
+        <div class="login-container">
+            <h1>Order Management</h1>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="remember-me"> Remember me
+                    </label>
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-dashboard" class="page">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <button id="admin-logout" class="btn logout-btn">Logout</button>
+        </header>
+        <div class="dashboard-content">
+            <div class="section">
+                <h2>Order Status</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="all">All Orders</button>
+                    <button class="tab-btn" data-tab="distributor">Distributors</button>
+                    <button class="tab-btn" data-tab="franchise">Franchises</button>
+                </div>
+                <div id="admin-orders" class="orders-list"></div>
+                <button id="create-order-btn" class="btn">Create New Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="client-dashboard" class="page">
+        <header>
+            <h1>My Orders</h1>
+            <button id="client-logout" class="btn logout-btn">Logout</button>
+        </header>
+        <div class="dashboard-content">
+            <div id="client-orders" class="orders-list"></div>
+        </div>
+    </div>
+
+    <div id="create-order-page" class="page">
+        <header>
+            <h1>Create New Order</h1>
+            <button id="back-to-dashboard" class="btn logout-btn">Back</button>
+        </header>
+        <div class="dashboard-content">
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="client-select">Client</label>
+                    <select id="client-select" required>
+                        <option value="">Select a client</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transport-mode">Transport Mode</label>
+                    <select id="transport-mode" required>
+                        <option value="">Select transport mode</option>
+                        <option value="Road">Road</option>
+                        <option value="Rail">Rail</option>
+                        <option value="Air">Air</option>
+                        <option value="Sea">Sea</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order-cost">Cost ($)</label>
+                    <input type="number" id="order-cost" min="0" step="0.01" required>
+                </div>
+                <button type="submit" class="btn">Create Order</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Update Order #<span id="modal-order-id"></span></h2>
+            <form id="update-order-form">
+                <div class="form-group">
+                    <label for="order-status">Status</label>
+                    <select id="order-status" required>
+                        <option value="pending">Pending</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paid-amount">Paid Amount ($)</label>
+                    <input type="number" id="paid-amount" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <p>Total Cost: $<span id="modal-total-cost">0.00</span></p>
+                    <p>Amount Paid: $<span id="modal-paid-total">0.00</span></p>
+                    <p>Amount Due: $<span id="modal-due-amount">0.00</span></p>
+                </div>
+                <button type="submit" class="btn">Update Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

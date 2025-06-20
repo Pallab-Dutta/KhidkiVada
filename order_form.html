@@ -1,0 +1,67 @@
+<div id="order-form-page" class="page">
+    <header>
+        <h2>Create New Order</h2>
+    </header>
+    <form id="create-order-form" class="order-form-container">
+        <div id="form-step-1" class="form-step active">
+            <h3>Step 1: Select Client</h3>
+            <div class="form-group">
+                <label for="client-type">Client Type</label>
+                <select id="client-type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Distributor">Distributor</option>
+                    <option value="Franchisee">Franchisee</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="client-name">Client Name</label>
+                <select id="client-name" required disabled>
+                    <option value="">-- Select Type First --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="client-address">Client Address</label>
+                <input type="text" id="client-address" disabled>
+            </div>
+            <button type="button" id="next-to-step-2" class="btn" disabled>Next</button>
+        </div>
+
+        <div id="form-step-2" class="form-step">
+            <h3>Step 2: Enter Item Quantities</h3>
+            <div class="form-group">
+                <label for="order-date">Order Date</label>
+                <input type="date" id="order-date">
+            </div>
+            <table id="items-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price (₹)</th>
+                        <th>Quantity</th>
+                        <th>Total (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+            <div class="form-actions">
+                <button type="button" id="back-to-step-1" class="btn btn-secondary">Back</button>
+                <button type="button" id="next-to-step-3" class="btn">Review Order</button>
+            </div>
+        </div>
+
+        <div id="form-step-3" class="form-step">
+            <h3>Step 3: Review and Confirm</h3>
+            <div id="review-details">
+                </div>
+             <div class="form-group">
+                <label for="paid-amount">Paid Amount (₹)</label>
+                <input type="number" id="paid-amount" placeholder="Enter amount paid" min="0" value="0">
+            </div>
+            <div class="form-actions">
+                <button type="button" id="back-to-step-2" class="btn btn-secondary">Back</button>
+                <button type="submit" id="confirm-order-btn" class="btn">Confirm Order</button>
+            </div>
+        </div>
+    </form>
+</div>

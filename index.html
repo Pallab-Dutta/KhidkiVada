@@ -4,119 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Management System</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div id="login-page" class="page active">
-        <div class="login-container">
-            <h1>Order Management</h1>
-            <form id="login-form">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="remember-me"> Remember me
-                    </label>
-                </div>
-                <button type="submit" class="btn">Login</button>
-            </form>
-        </div>
-    </div>
+    <svg width="0" height="0" style="display: none;">
+        <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></symbol>
+        <symbol id="icon-add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></symbol>
+        <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></symbol>
+    </svg>
 
-    <div id="admin-dashboard" class="page">
-        <header>
-            <h1>Admin Dashboard</h1>
-            <button id="admin-logout" class="btn logout-btn">Logout</button>
-        </header>
-        <div class="dashboard-content">
-            <div class="section">
-                <h2>Order Status</h2>
-                <div class="tabs">
-                    <button class="tab-btn active" data-tab="all">All Orders</button>
-                    <button class="tab-btn" data-tab="distributor">Distributors</button>
-                    <button class="tab-btn" data-tab="franchise">Franchises</button>
-                </div>
-                <div id="admin-orders" class="orders-list"></div>
-                <button id="create-order-btn" class="btn">Create New Order</button>
-            </div>
+    <nav id="desktop-nav" class="desktop-nav" style="display: none;">
+        <h1>OrderPro</h1>
+        <div class="nav-links">
+            <a href="#" class="nav-link" data-page="dashboard">Dashboard</a>
+            <a href="#" class="nav-link" data-page="order_form">New Order</a>
         </div>
-    </div>
+        <button id="logout-btn" class="btn logout-btn">Logout</button>
+    </nav>
 
-    <div id="client-dashboard" class="page">
-        <header>
-            <h1>My Orders</h1>
-            <button id="client-logout" class="btn logout-btn">Logout</button>
-        </header>
-        <div class="dashboard-content">
-            <div id="client-orders" class="orders-list"></div>
-        </div>
-    </div>
-
-    <div id="create-order-page" class="page">
-        <header>
-            <h1>Create New Order</h1>
-            <button id="back-to-dashboard" class="btn logout-btn">Back</button>
-        </header>
-        <div class="dashboard-content">
-            <form id="order-form">
-                <div class="form-group">
-                    <label for="client-select">Client</label>
-                    <select id="client-select" required>
-                        <option value="">Select a client</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="transport-mode">Transport Mode</label>
-                    <select id="transport-mode" required>
-                        <option value="">Select transport mode</option>
-                        <option value="Road">Road</option>
-                        <option value="Rail">Rail</option>
-                        <option value="Air">Air</option>
-                        <option value="Sea">Sea</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="order-cost">Cost ($)</label>
-                    <input type="number" id="order-cost" min="0" step="0.01" required>
-                </div>
-                <button type="submit" class="btn">Create Order</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="order-modal" class="modal">
+    <div id="update-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Update Order #<span id="modal-order-id"></span></h2>
-            <form id="update-order-form">
+            <span class="modal-close-btn">&times;</span>
+            <h3>Update Payment</h3>
+            <form id="update-payment-form">
+                <input type="hidden" id="update-order-id">
                 <div class="form-group">
-                    <label for="order-status">Status</label>
-                    <select id="order-status" required>
-                        <option value="pending">Pending</option>
-                        <option value="shipped">Shipped</option>
-                        <option value="completed">Completed</option>
-                    </select>
+                    <label>Order ID:</label>
+                    <p id="modal-order-id" class="modal-info"></p>
                 </div>
                 <div class="form-group">
-                    <label for="paid-amount">Paid Amount ($)</label>
-                    <input type="number" id="paid-amount" min="0" step="0.01" required>
+                    <label>Total Amount:</label>
+                    <p id="modal-total-amount" class="modal-info"></p>
+                </div>
+                 <div class="form-group">
+                    <label>Amount Due:</label>
+                    <p id="modal-due-amount" class="modal-info"></p>
                 </div>
                 <div class="form-group">
-                    <p>Total Cost: $<span id="modal-total-cost">0.00</span></p>
-                    <p>Amount Paid: $<span id="modal-paid-total">0.00</span></p>
-                    <p>Amount Due: $<span id="modal-due-amount">0.00</span></p>
+                    <label for="newly-paid-amount">Enter New Amount Paid:</label>
+                    <input type="number" id="newly-paid-amount" min="0.01" step="0.01" required>
                 </div>
-                <button type="submit" class="btn">Update Order</button>
+                <div class="form-actions">
+                    <button type="submit" id="confirm-update-btn" class="btn">Save Payment</button>
+                </div>
             </form>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <main id="app-container">
+        </main>
+
+    <nav id="bottom-nav" class="bottom-nav" style="display: none;">
+        <a href="#" class="nav-link" data-page="dashboard">
+            <svg><use xlink:href="#icon-dashboard"></use></svg>
+            <span>Dashboard</span>
+        </a>
+        <a href="#" class="nav-link" data-page="order_form">
+            <svg><use xlink:href="#icon-add"></use></svg>
+            <span>New Order</span>
+        </a>
+        <a href="#" id="mobile-logout-link" class="nav-link">
+            <svg><use xlink:href="#icon-logout"></use></svg>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </body>
 </html>
