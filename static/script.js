@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const appContainer = document.getElementById('app-container');
     const desktopNav = document.getElementById('desktop-nav');
     const bottomNav = document.getElementById('bottom-nav');
-
-    const menuModal = document.getElementById('global-menu-modal');
-    const closeMenuBtn = document.getElementById('close-menu-btn');
-    const mobileMenuLink = document.getElementById('mobile-menu-link');
-    const desktopMenuBtn = document.getElementById('desktop-menu-btn');
     
     // --- STATE MANAGEMENT ---
     let appState = {
@@ -17,10 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
         orders: [], // To store orders for the dashboard
         currentOrder: {}
     };
-
-    // --- MENU LOGIC ---
-    const openMenu = () => menuModal.classList.add('show');
-    const closeMenu = () => menuModal.classList.remove('show');
 
     // --- ROUTING & PAGE LOADING ---
     const loadPage = async (page) => {
@@ -113,9 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const showNav = appState.isLoggedIn;
         desktopNav.style.display = showNav ? 'flex' : 'none';
         bottomNav.style.display = showNav ? 'flex' : 'none';
-	if (!showNav) {
-            closeMenu();
-        }
     };
 
     const setupDashboardPage = async () => {
@@ -970,49 +958,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- GLOBAL EVENT LISTENERS & APP START ---
-    const setupGlobalEventListeners = () => {
-        // Menu Openers
-        mobileMenuLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            openMenu();
-        });
-        desktopMenuBtn.addEventListener('click', openMenu);
-
-        // Menu Closers
-        closeMenuBtn.addEventListener('click', closeMenu);
-        menuModal.addEventListener('click', (e) => {
-            if (e.target === menuModal) { // Click on the overlay background
-                closeMenu();
-            }
-        });
-
-        // Menu Item Actions
-        const menuItemsContainer = document.querySelector('.menu-content');
-        menuItemsContainer.addEventListener('click', (e) => {
-            const target = e.target.closest('.menu-item');
-            if (!target) return;
-
-            e.preventDefault();
-            
-            switch(target.id) {
-                case 'change-password-link': loadPage('change_password'); break;
-                case 'add-client-link': loadPage('add_client'); break;
-                case 'history-link': loadPage('history'); break;
-                case 'logout-link': handleLogout(); break;
-            }
-            closeMenu();
-        });
-
-        // Bottom Nav Page Clicks
-        bottomNav.addEventListener('click', (e) => {
-            const navLink = e.target.closest('.nav-link');
-            if (navLink && navLink.dataset.page) {
-                e.preventDefault();
-                loadPage(navLink.dataset.page);
-            }
-        });
-    };
-
     document.body.addEventListener('click', (e) => {
         const navLink = e.target.closest('.nav-link');
         if (navLink) {
@@ -1026,8 +971,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Initial Load
-    setupGlobalEventListeners();
-    // loadPage('login'); // Initial page load
     setupModalListeners();
     updateNavVisibility();
     loadPage('login');
