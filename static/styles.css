@@ -382,6 +382,16 @@ body {
 .modal-content h3 { margin-bottom: 20px; }
 .modal-info { font-weight: bold; color: var(--primary-color); font-size: 18px; }
 
+.global-nav {
+        display: flex; /* Show desktop nav */
+        background-color: var(--dark-gray);
+        color: white;
+        padding: 0 40px;
+        align-items: center;
+        height: 60px;
+}
+
+.global-nav h1 { flex-grow: 0; }
 
 /* --- Desktop Styles (Tablet and up) --- */
 @media (min-width: 768px) {

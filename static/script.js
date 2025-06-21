@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = 'http://127.0.0.1:5000';
     const appContainer = document.getElementById('app-container');
-    const desktopNav = document.getElementById('desktop-nav');
+    //const desktopNav = document.getElementById('desktop-nav');
     const bottomNav = document.getElementById('bottom-nav');
 
     // --- GLOBAL MENU ELEMENTS ---
