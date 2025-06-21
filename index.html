@@ -10,17 +10,12 @@
     <svg width="0" height="0" style="display: none;">
         <symbol id="icon-dashboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></symbol>
         <symbol id="icon-add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="M5 12h14"></path></symbol>
-        <symbol id="icon-logout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></symbol>
+        <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></symbol>
     </svg>
 
-    <nav id="desktop-nav" class="desktop-nav" style="display: none;">
+    <header id="desktop-nav" class="desktop-nav" style="display: none;">
         <h1>OrderPro</h1>
-        <div class="nav-links">
-            <a href="#" class="nav-link" data-page="dashboard">Dashboard</a>
-            <a href="#" class="nav-link" data-page="order_form">New Order</a>
-        </div>
-        <button id="logout-btn" class="btn logout-btn">Logout</button>
-    </nav>
+    </header>
 
     <div id="update-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
@@ -51,8 +46,18 @@
         </div>
     </div>
 
-    <main id="app-container">
-        </main>
+    <main id="app-container"></main>
+
+    <div id="global-menu-modal" class="menu-modal">
+        <div class="menu-content">
+            <button id="close-menu-btn" class="close-btn">&times;</button>
+            <h2>Menu</h2>
+            <a href="#" id="change-password-link" class="menu-item">Change Password</a>
+            <a href="#" id="add-client-link" class="menu-item">Add New Client</a>
+            <a href="#" id="history-link" class="menu-item">Check History</a>
+            <a href="#" id="logout-link" class="menu-item">Logout</a>
+        </div>
+    </div>
 
     <nav id="bottom-nav" class="bottom-nav" style="display: none;">
         <a href="#" class="nav-link" data-page="dashboard">
@@ -63,9 +68,9 @@
             <svg><use xlink:href="#icon-add"></use></svg>
             <span>New Order</span>
         </a>
-        <a href="#" id="mobile-logout-link" class="nav-link">
-            <svg><use xlink:href="#icon-logout"></use></svg>
-            <span>Logout</span>
+	<a href="#" id="mobile-menu-link" class="nav-link">
+            <svg><use xlink:href="#icon-menu"></use></svg>
+            <span>Menu</span>
         </a>
     </nav>
 
