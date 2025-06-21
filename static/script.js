@@ -133,15 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
         }
 
-	const menuBtn = document.getElementById('menu-btn');
-        const menuDropdown = document.getElementById('menu-dropdown');
-        const logoutLink = document.getElementById('logout-link');
-        const addClientLink = document.getElementById('add-client-link');
-        const historyLink = document.getElementById('history-link');
-        const changePasswordLink = document.getElementById('change-password-link');
-
-        menuBtn.addEventListener('click', () => {
-            menuDropdown.classList.toggle('show');
         });
 
         logoutLink.addEventListener('click', (e) => {
