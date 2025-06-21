@@ -133,8 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
         }
 
-        });
-
         logoutLink.addEventListener('click', (e) => {
             e.preventDefault();
             handleLogout();
