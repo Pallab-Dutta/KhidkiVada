@@ -132,32 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Dashboard Error:", error);
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
         }
-
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleLogout();
-        });
-
-        addClientLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('add_client');
-        });
-
-        historyLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('history');
-        });
-
-        changePasswordLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('change_password');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (menuDropdown && menuBtn && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
-                menuDropdown.classList.remove('show');
-            }
-        });
     };
 
     // --- NEW: RENDERORDERS FUNCTION ---
