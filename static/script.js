@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
             // Attach a single event listener to the container
-            setupDashboardEventListeners('dashboard-orders-list'); 
+            setupDashboardEventListeners(); 
         } catch (error) {
             console.error("Dashboard Error:", error);
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
@@ -204,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- NEW: DASHBOARD EVENT LISTENER SETUP ---
     // This uses event delegation for efficiency. One listener handles all card clicks.
-    const setupDashboardEventListeners = (containerId) => {
-        const container = document.getElementById(containerId);
+    const setupDashboardEventListeners = () => {
+        const container = document.getElementById('dashboard-orders-list');
         if (!container) return;
 
         container.addEventListener('click', (e) => {
@@ -294,15 +294,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const orders = await response.json();
                 renderOrders(orders, 'history-orders-list');
-		setupDashboardEventListeners('history-orders-list');
 
                 // Re-attach event listeners for the new content
+		// Re-attach event listeners for the new content in the history list
                 const container = document.getElementById('history-orders-list');
                 container.addEventListener('click', (e) => {
+                    const card = e.target.closest('.order-card');
+                    if (!card) return;
+
+                    // Handle download button click
                     if (e.target.matches('.download-invoice-btn')) {
                         const orderIndex = e.target.dataset.orderIndex;
                         generateInvoicePDF(orders[orderIndex]);
+                        return; // Prevent card from toggling
                     }
+
+                    // Handle update payment button click (if it exists on a historical order)
+                    if (e.target.matches('.update-payment-btn')) {
+                        openUpdateModal(e.target.dataset.orderId);
+                        return;
+                    }
+
+                    // If any other part of the card is clicked, toggle expansion
+                    card.classList.toggle('expanded');
                 });
             } catch (error) {
                 console.error("History Error:", error);
