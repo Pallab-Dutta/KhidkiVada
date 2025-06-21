@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuModal = document.getElementById('global-menu-modal');
     const closeMenuBtn = document.getElementById('close-menu-btn');
     const mobileMenuLink = document.getElementById('mobile-menu-link');
-    const desktopMenuBtn = document.getElementById('desktop-menu-btn');
+    //const desktopMenuBtn = document.getElementById('desktop-menu-btn');
     
     // --- STATE MANAGEMENT ---
     let appState = {
@@ -954,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             openMenu();
         });
-        desktopMenuBtn.addEventListener('click', openMenu);
+        //desktopMenuBtn.addEventListener('click', openMenu);
 
         // Menu Closers
         closeMenuBtn.addEventListener('click', closeMenu);
