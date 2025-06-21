@@ -1030,8 +1030,8 @@ document.addEventListener('DOMContentLoaded', () => {
     */
     
     // Initial Load
-    //setupModalListeners();
-    //updateNavVisibility();
+    setupModalListeners();
+    updateNavVisibility();
     setupGlobalEventListeners();
     loadPage('login');
 });
