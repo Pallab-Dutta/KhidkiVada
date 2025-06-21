@@ -993,7 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupGlobalEventListeners();
 
-    setupModalListeners();
-    updateNavVisibility();
+    //setupModalListeners();
+    //updateNavVisibility();
     loadPage('login');
 });
