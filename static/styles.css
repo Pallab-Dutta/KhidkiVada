@@ -387,6 +387,7 @@ body {
         background-color: var(--dark-gray);
         color: white;
         padding: 0 40px;
+	justify-content: center;
         align-items: center;
         height: 60px;
 }
