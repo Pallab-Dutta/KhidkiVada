@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${API_BASE_URL}/api/orders`);
             if (!response.ok) throw new Error('Failed to fetch orders');
             appState.orders = await response.json();
-            renderOrders(appState.orders);
+            renderOrders(appState.orders, 'dashboard-orders-list');
             // Attach a single event listener to the container
             setupDashboardEventListeners(); 
         } catch (error) {
@@ -160,8 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- NEW: RENDERORDERS FUNCTION ---
     // This function now creates a collapsed card with a hidden details section.
-    const renderOrders = (orders) => {
-        const container = document.getElementById('dashboard-orders-list');
+    const renderOrders = (orders, containerId) => {
+        const container = document.getElementById(containerId);
         if (!container) return;
         if (orders.length === 0) {
             container.innerHTML = '<p>No orders found. Create one!</p>';
@@ -603,7 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`);
     		    if (!orderResponse.ok) throw new Error('Failed to refresh orders list.');
     		    appState.orders = await orderResponse.json();
-    		    renderOrders(appState.orders);
+    		    renderOrders(appState.orders, 'dashboard-orders-list');
                 } catch (error) {
                     alert(`Error: ${error.message}`);
                 } finally {
