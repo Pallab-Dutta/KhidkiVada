@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
             // Attach a single event listener to the container
-            setupDashboardEventListeners(); 
+            setupDashboardEventListeners('dashboard-orders-list'); 
         } catch (error) {
             console.error("Dashboard Error:", error);
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
@@ -204,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- NEW: DASHBOARD EVENT LISTENER SETUP ---
     // This uses event delegation for efficiency. One listener handles all card clicks.
-    const setupDashboardEventListeners = () => {
-        const container = document.getElementById('dashboard-orders-list');
+    const setupDashboardEventListeners = (containerId) => {
+        const container = document.getElementById(containerId);
         if (!container) return;
 
         container.addEventListener('click', (e) => {
@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 const orders = await response.json();
                 renderOrders(orders, 'history-orders-list');
+		setupDashboardEventListeners('history-orders-list');
 
                 // Re-attach event listeners for the new content
                 const container = document.getElementById('history-orders-list');
