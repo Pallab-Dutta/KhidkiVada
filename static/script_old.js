@@ -49,15 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'order_form':
                 setupOrderFormPage();
                 break;
-	    case 'add_client':
-                setupAddClientPage();
-                break;
-            case 'history':
-                setupHistoryPage();
-                break;
-            case 'change_password':
-                setupChangePasswordPage();
-                break;
         }
     };
 
@@ -119,43 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Dashboard Error:", error);
             ordersListContainer.innerHTML = `<p class="error-message">Could not load orders.</p>`;
         }
-
-	const menuBtn = document.getElementById('menu-btn');
-        const menuDropdown = document.getElementById('menu-dropdown');
-        const logoutLink = document.getElementById('logout-link');
-        const addClientLink = document.getElementById('add-client-link');
-        const historyLink = document.getElementById('history-link');
-        const changePasswordLink = document.getElementById('change-password-link');
-
-        menuBtn.addEventListener('click', () => {
-            menuDropdown.classList.toggle('show');
-        });
-
-        logoutLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            handleLogout();
-        });
-
-        addClientLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('add_client');
-        });
-
-        historyLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('history');
-        });
-
-        changePasswordLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loadPage('change_password');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (menuDropdown && menuBtn && !menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
-                menuDropdown.classList.remove('show');
-            }
-        });
     };
 
     // --- NEW: RENDERORDERS FUNCTION ---
@@ -227,132 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Case 3: Click is anywhere else on the card - toggle expansion
             card.classList.toggle('expanded');
-        });
-    };
-
-    const setupAddClientPage = () => {
-        const form = document.getElementById('add-client-form');
-        const errorEl = document.getElementById('add-client-error');
-        const backBtn = document.getElementById('back-to-dashboard');
-    
-        backBtn.addEventListener('click', () => loadPage('dashboard'));
-    
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorEl.style.display = 'none';
-    
-            const clientData = {
-                type: document.getElementById('client-type').value,
-                name: document.getElementById('client-name').value,
-                address: document.getElementById('client-address').value,
-                prices: {
-                    '15 kg': parseFloat(document.getElementById('price-15kg').value),
-                    '1 kg': parseFloat(document.getElementById('price-1kg').value),
-                    '100 gm box': parseFloat(document.getElementById('price-100gm-box').value),
-                    '100 gm packet': parseFloat(document.getElementById('price-100gm-packet').value)
-                }
-            };
-    
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/clients`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(clientData)
-                });
-    
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to add client');
-                }
-    
-                alert('Client added successfully!');
-                loadPage('dashboard');
-    
-            } catch (error) {
-                errorEl.textContent = error.message;
-                errorEl.style.display = 'block';
-            }
-        });
-    };
-    
-    const setupHistoryPage = () => {
-        const form = document.getElementById('history-filter-form');
-        const ordersListContainer = document.getElementById('history-orders-list');
-        const backBtn = document.getElementById('back-to-dashboard-hist');
-
-        backBtn.addEventListener('click', () => loadPage('dashboard'));
-    
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const startDate = document.getElementById('start-date').value;
-            const endDate = document.getElementById('end-date').value;
-    
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch order history');
-                }
-                const orders = await response.json();
-                renderOrders(orders, 'history-orders-list');
-
-                // Re-attach event listeners for the new content
-                const container = document.getElementById('history-orders-list');
-                container.addEventListener('click', (e) => {
-                    if (e.target.matches('.download-invoice-btn')) {
-                        const orderIndex = e.target.dataset.orderIndex;
-                        generateInvoicePDF(orders[orderIndex]);
-                    }
-                });
-            } catch (error) {
-                console.error("History Error:", error);
-                ordersListContainer.innerHTML = `<p class="error-message">Could not load order history.</p>`;
-            }
-        });
-    };
-    
-    const setupChangePasswordPage = () => {
-        const form = document.getElementById('change-password-form');
-        const errorEl = document.getElementById('change-password-error');
-        const successEl = document.getElementById('change-password-success');
-        const backBtn = document.getElementById('back-to-dashboard-cp');
-    
-        backBtn.addEventListener('click', () => loadPage('dashboard'));
-    
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorEl.style.display = 'none';
-            successEl.style.display = 'none';
-    
-            const currentPassword = document.getElementById('current-password').value;
-            const newPassword = document.getElementById('new-password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-    
-            if (newPassword !== confirmPassword) {
-                errorEl.textContent = "New passwords do not match.";
-                errorEl.style.display = 'block';
-                return;
-            }
-    
-            try {
-                const response = await fetch(`${API_BASE_URL}/api/change_password`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
-                });
-    
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to change password');
-                }
-                
-                successEl.textContent = "Password changed successfully!";
-                successEl.style.display = 'block';
-                form.reset();
-    
-            } catch (error) {
-                errorEl.textContent = error.message;
-                errorEl.style.display = 'block';
-            }
         });
     };
     

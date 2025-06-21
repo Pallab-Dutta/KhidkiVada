@@ -84,7 +84,7 @@ body {
     text-align: center;
     transition: background-color 0.2s;
 }
-.btn:hover { background-color: #2980b9; }
+.btn:hover { background-color: var(--secondary-color); }
 .btn:disabled { background-color: #bdc3c7; cursor: not-allowed; }
 .btn-secondary { background-color: var(--secondary-color); }
 .btn-secondary:hover { background-color: #95a5a6; }
@@ -108,7 +108,6 @@ body {
 .form-actions { margin-top: 20px; }
 .form-actions .btn:not(:first-child) { margin-top: 10px; }
 .error-message { color: var(--danger-color); text-align: center; margin-top: 15px; }
-.success-message { color: var(--success-color); text-align: center; margin-top: 15px; }
 
 /* --- Login Page --- */
 .login-container {
@@ -122,53 +121,7 @@ body {
 .login-container h1 { text-align: center; margin-bottom: 25px; color: var(--dark-gray); }
 
 /* --- Dashboard & Order Cards --- */
-.dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.menu-container {
-    position: relative;
-}
-
-#menu-btn {
-    width: auto;
-    padding: 10px 20px;
-}
-
-.menu-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    border-radius: 5px;
-    z-index: 1001;
-    min-width: 160px;
-}
-
-.menu-dropdown.show {
-    display: block;
-}
-
-.menu-item {
-    display: block;
-    padding: 12px 16px;
-    text-decoration: none;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--border-color);
-}
-
-.menu-item:last-child {
-    border-bottom: none;
-}
-
-.menu-item:hover {
-    background-color: var(--light-gray);
-}
-
+/* --- ORDER CARD STYLES (NEW) --- */
 .order-card {
     background-color: #fff;
     border-radius: 8px;
@@ -187,6 +140,7 @@ body {
 .order-card.status-partially_paid { border-left-color: var(--warning-color); }
 .order-card.status-pending { border-left-color: var(--danger-color); }
 
+/* Card Summary (The part that is always visible) */
 .card-summary {
     display: flex;
     justify-content: space-between;
@@ -194,7 +148,6 @@ body {
     padding: 15px;
     cursor: pointer;
 }
-
 .summary-info h3 {
     font-size: 1.1rem;
     margin: 0 0 4px 0;

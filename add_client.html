@@ -1,0 +1,45 @@
+<div id="add-client-page" class="page">
+    <header>
+        <h2>Add New Client</h2>
+    </header>
+    <form id="add-client-form">
+        <div class="form-group">
+            <label for="client-type">Client Type</label>
+            <select id="client-type" required>
+                <option value="">-- Select Type --</option>
+                <option value="Distributor">Distributor</option>
+                <option value="Franchisee">Franchisee</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="client-name">Client Name</label>
+            <input type="text" id="client-name" required>
+        </div>
+        <div class="form-group">
+            <label for="client-address">Client Address</label>
+            <input type="text" id="client-address" required>
+        </div>
+        <h3>Default Item Prices (₹)</h3>
+        <div class="form-group">
+            <label for="price-15kg">15 kg</label>
+            <input type="number" id="price-15kg" required min="0" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="price-1kg">1 kg</label>
+            <input type="number" id="price-1kg" required min="0" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="price-100gm-box">100 gm box</label>
+            <input type="number" id="price-100gm-box" required min="0" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="price-100gm-packet">100 gm packet</label>
+            <input type="number" id="price-100gm-packet" required min="0" step="0.01">
+        </div>
+        <div class="form-actions">
+            <button type="button" id="back-to-dashboard" class="btn btn-secondary">Back</button>
+            <button type="submit" class="btn">Save Client</button>
+        </div>
+        <p id="add-client-error" class="error-message" style="display: none;"></p>
+    </form>
+</div>

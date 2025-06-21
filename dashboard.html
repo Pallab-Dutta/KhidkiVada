@@ -1,10 +1,17 @@
 <div id="dashboard-page" class="page">
-    <header>
+    <header class="dashboard-header">
         <h2>Dashboard - All Orders</h2>
+        <div class="menu-container">
+            <button id="menu-btn" class="btn">Menu</button>
+            <div id="menu-dropdown" class="menu-dropdown">
+                <a href="#" id="change-password-link" class="menu-item">Change Password</a>
+                <a href="#" id="add-client-link" class="menu-item">Add New Client</a>
+                <a href="#" id="history-link" class="menu-item">Check History</a>
+                <a href="#" id="logout-link" class="menu-item">Logout</a>
+            </div>
+        </div>
     </header>
     <div id="dashboard-orders-list" class="orders-list">
-        <!-- Orders will be dynamically inserted here -->
         <p>Loading orders...</p>
     </div>
 </div>
-
