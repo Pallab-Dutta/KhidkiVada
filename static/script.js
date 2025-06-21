@@ -1013,7 +1013,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    /*
     document.body.addEventListener('click', (e) => {
         const navLink = e.target.closest('.nav-link');
         if (navLink) {
@@ -1025,12 +1024,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-    */
     
     // Initial Load
     setupGlobalEventListeners();
-    loadPage('login'); // Initial page load
-    // setupModalListeners();
-    // updateNavVisibility();
-    // loadPage('login');
+    // loadPage('login'); // Initial page load
+    setupModalListeners();
+    updateNavVisibility();
+    loadPage('login');
 });
