@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const API_BASE_URL = 'http://127.0.0.1:5000';
     const appContainer = document.getElementById('app-container');
-    //const desktopNav = document.getElementById('desktop-nav');
+    const globalNav = document.getElementById('global-nav');
     const bottomNav = document.getElementById('bottom-nav');
 
     // --- GLOBAL MENU ELEMENTS ---
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updateNavVisibility = () => {
         const showNav = appState.isLoggedIn;
-        desktopNav.style.display = showNav ? 'flex' : 'none';
+        globalNav.style.display = showNav ? 'flex' : 'none';
         bottomNav.style.display = showNav ? 'flex' : 'none';
 	if (!showNav) {
             closeMenu();
