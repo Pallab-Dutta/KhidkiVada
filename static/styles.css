@@ -353,7 +353,6 @@ body {
   outline: none;
   text-align: right; 
   float: right;
-  margin-bottom: 5px;
 }
 
 #items-table .item-header {
@@ -362,7 +361,7 @@ body {
   background-color: var(--danger-color);
 }
 
-#items-table .item-total { font-weight: bold; color: var(--danger-color); }
+#items-table .item-total { font-weight: bold; color: var(--dark-gray); }
 #review-details {
     padding: 15px;
     background: var(--light-gray);
