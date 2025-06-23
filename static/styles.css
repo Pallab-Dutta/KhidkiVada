@@ -338,8 +338,24 @@ body {
     font-weight: bold;
     text-align: left;
 }
-#items-table .item-price { text-align: right; border-bottom: 2px solid black }
-#items-table .item-quantity { max-width: 80px; text-align: right; float: right; }
+
+#items-table .item-price { 
+  text-align: right; 
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none; 
+}
+
+#items-table .item-quantity { 
+  max-width: 80px; 
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+  text-align: right; 
+  float: right;
+  bottom: 5px;
+}
+
 #items-table .item-total { font-weight: bold; color: var(--primary-color); }
 #review-details {
     padding: 15px;
