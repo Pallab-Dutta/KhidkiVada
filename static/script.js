@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/login`, {
                     method: 'POST',
-		    credentials: 'include',
+		    credentials: 'omit',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
                 });
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`${API_BASE_URL}/api/orders`, {
     	    method: 'GET',
-	    credentials: 'include'});
+	    credentials: 'omit'});
             if (!response.ok) throw new Error('Failed to fetch orders');
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/clients`, {
                     method: 'POST',
-		    credentials: 'include',
+		    credentials: 'omit',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(clientData)
                 });
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
 		    method: 'GET',
-		    credentials: 'include'
+		    credentials: 'omit'
 		});
                 if (!response.ok) {
                     throw new Error('Failed to fetch order history');
@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/change_password`, {
                     method: 'POST',
-		    credentials: 'include',
+		    credentials: 'omit',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
                 });
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}`, {
                         method: 'PUT',
-			credentials: 'include',
+			credentials: 'omit',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ newly_paid: parseFloat(newly_paid) })
                     });
@@ -601,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		    //setupDashboardPage(); // Refresh the dashboard
 		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
 		        method: 'GET',
-			credentials: 'include'
+			credentials: 'omit'
 		    });
     		    if (!orderResponse.ok) throw new Error('Failed to refresh orders list.');
     		    appState.orders = await orderResponse.json();
@@ -656,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/clients?type=${type}`, {
                         method: 'GET',
-                        credentials: 'include'
+                        credentials: 'omit'
                 });
                 appState.clients = await response.json();
                 clientNameSelect.innerHTML = '<option value="">-- Select Client --</option>';
@@ -778,7 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
              try {
                  const response = await fetch(`${API_BASE_URL}/api/orders`, { 
 			 method: 'POST', 
-			 credentials: 'include',
+			 credentials: 'omit',
 			 headers: { 'Content-Type': 'application/json' }, 
 			 body: JSON.stringify(appState.currentOrder) 
 		 });
