@@ -327,7 +327,7 @@ body {
     display: block;
     padding: 10px;
     text-align: right;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid white;
     position: relative;
 }
 #items-table td:last-child { border-bottom: none; }
@@ -338,6 +338,7 @@ body {
     font-weight: bold;
     text-align: left;
 }
+#items-table .item-price { text-align: right; border-bottom: 2px solid black }
 #items-table .item-quantity { max-width: 80px; text-align: right; float: right; }
 #items-table .item-total { font-weight: bold; color: var(--primary-color); }
 #review-details {
