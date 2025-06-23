@@ -64,7 +64,7 @@ body {
     flex-grow: 1;
     height: 100%;
 }
-.bottom-nav .nav-link.active { color: var(--primary-color); }
+.bottom-nav .nav-link.active { color: var(--danger-color); }
 .bottom-nav .nav-link svg { width: 24px; height: 24px; }
 .bottom-nav .nav-link span { font-size: 12px; margin-top: 4px; }
 .desktop-nav { display: none; } /* Hide on mobile */
@@ -353,18 +353,16 @@ body {
   outline: none;
   text-align: right; 
   float: right;
-  bottom: 5px;
+  margin-bottom: 5px;
 }
 
 #items-table .item-header {
   font-weight: bold;
   color: #fff;
-  top-left-border-radius: 90px;
-  top-right-border-radius: 90px;
   background-color: var(--danger-color);
 }
 
-#items-table .item-total { font-weight: bold; color: var(--primary-color); }
+#items-table .item-total { font-weight: bold; color: var(--danger-color); }
 #review-details {
     padding: 15px;
     background: var(--light-gray);
