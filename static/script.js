@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'https://ec63-14-139-220-33.ngrok-free.app';
+    const API_BASE_URL = 'https://3d27-14-139-220-33.ngrok-free.app';
     const appContainer = document.getElementById('app-container');
     const globalNav = document.getElementById('global-nav');
     const bottomNav = document.getElementById('bottom-nav');
