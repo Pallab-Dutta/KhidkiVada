@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/login`, {
                     method: 'POST',
+		    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password })
                 });
@@ -123,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const ordersListContainer = document.getElementById('dashboard-orders-list');
         try {
             const response = await fetch(`${API_BASE_URL}/api/orders`, {
-    	    method: 'GET'});
+    	    method: 'GET',
+	    credentials: 'include'});
             if (!response.ok) throw new Error('Failed to fetch orders');
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
@@ -233,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/clients`, {
                     method: 'POST',
+		    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(clientData)
                 });
@@ -265,7 +268,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const endDate = document.getElementById('end-date').value;
     
             try {
-                const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`);
+                const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`{
+		    method: 'GET',
+		    credentials: 'include'
+		});
                 if (!response.ok) {
                     throw new Error('Failed to fetch order history');
                 }
@@ -327,6 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/change_password`, {
                     method: 'POST',
+		    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ current_password: currentPassword, new_password: newPassword })
                 });
@@ -579,6 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const response = await fetch(`${API_BASE_URL}/api/orders/${orderId}`, {
                         method: 'PUT',
+			credentials: 'include',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ newly_paid: parseFloat(newly_paid) })
                     });
@@ -591,7 +599,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeUpdateModal();
                     //initPage();
 		    //setupDashboardPage(); // Refresh the dashboard
-		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`);
+		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`{
+		        method: 'GET',
+			credentials: 'include'
+		    });
     		    if (!orderResponse.ok) throw new Error('Failed to refresh orders list.');
     		    appState.orders = await orderResponse.json();
     		    renderOrders(appState.orders, 'dashboard-orders-list');
@@ -762,7 +773,12 @@ document.addEventListener('DOMContentLoaded', () => {
              confirmBtn.disabled = true; confirmBtn.textContent = 'Saving...';
 	     console.log(appState.currentOrder);
              try {
-                 const response = await fetch(`${API_BASE_URL}/api/orders`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(appState.currentOrder) });
+                 const response = await fetch(`${API_BASE_URL}/api/orders`, { 
+			 method: 'POST', 
+			 credentials: 'include',
+			 headers: { 'Content-Type': 'application/json' }, 
+			 body: JSON.stringify(appState.currentOrder) 
+		 });
                  if (!response.ok) throw new Error('Failed to save order');
 		     console.log(appState.currentOrder);
 		     //generateInvoicePDF(appState.currentOrder);
