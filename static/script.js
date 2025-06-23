@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(`${API_BASE_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
+		    credentials: 'include',
                     body: JSON.stringify({ username, password })
                 });
                 if (!response.ok) {
@@ -122,7 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const setupDashboardPage = async () => {
         const ordersListContainer = document.getElementById('dashboard-orders-list');
         try {
-            const response = await fetch(`${API_BASE_URL}/api/orders`);
+            const response = await fetch(`${API_BASE_URL}/api/orders`, {
+    	    method: 'GET',
+    	    credentials: 'include'});
             if (!response.ok) throw new Error('Failed to fetch orders');
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
