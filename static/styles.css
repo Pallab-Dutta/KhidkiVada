@@ -113,9 +113,14 @@ body {
 .success-message { color: var(--success-color); text-align: center; margin-top: 15px; }
 
 /* --- Login Page --- */
+
 .login-header {
     max-width: 400px;
     background-color: var(--dark-gray);
+    border: none;
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--light-gray);
 }
 
 .login-container {
@@ -126,7 +131,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-.login-container h1 { text-align: center; margin-bottom: 25px; color: var(--light-gray); }
+
+/* .login-container h1 { text-align: center; margin-bottom: 25px; color: var(--light-gray); } */
 
 /* --- Dashboard & Order Cards --- */
 
