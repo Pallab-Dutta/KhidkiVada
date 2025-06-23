@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const endDate = document.getElementById('end-date').value;
     
             try {
-                const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`{
+                const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
 		    method: 'GET',
 		    credentials: 'include'
 		});
@@ -599,7 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     closeUpdateModal();
                     //initPage();
 		    //setupDashboardPage(); // Refresh the dashboard
-		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`{
+		    const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
 		        method: 'GET',
 			credentials: 'include'
 		    });
@@ -654,7 +654,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             try {
-                const response = await fetch(`${API_BASE_URL}/api/clients?type=${type}`);
+                const response = await fetch(`${API_BASE_URL}/api/clients?type=${type}`, {
+                        method: 'GET',
+                        credentials: 'include'
+                });
                 appState.clients = await response.json();
                 clientNameSelect.innerHTML = '<option value="">-- Select Client --</option>';
                 appState.clients.forEach(c => {
