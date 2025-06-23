@@ -357,7 +357,11 @@ body {
 }
 
 #items-table .item-header {
-  background-color: red;
+  font-weight: bold;
+  color: #fff;
+  top-left-border-radius: 90px;
+  top-right-border-radius: 90px;
+  background-color: var(--danger-color);
 }
 
 #items-table .item-total { font-weight: bold; color: var(--primary-color); }
