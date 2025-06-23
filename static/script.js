@@ -123,10 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ordersListContainer = document.getElementById('dashboard-orders-list');
         try {
             const response = await fetch(`${API_BASE_URL}/api/orders`);
-	    if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to fetch orders');
-                }
+	    if (!response.ok) throw new Error(response.json().error || 'Failed to fetch orders');
             // if (!response.ok) throw new Error('Failed to fetch orders');
             appState.orders = await response.json();
             renderOrders(appState.orders, 'dashboard-orders-list');
