@@ -358,10 +358,10 @@ body {
 #items-table .item-header {
   font-weight: bold;
   color: #fff;
-  background-color: var(--danger-color);
+  background-color: var(--dark-gray);
 }
 
-#items-table .item-total { font-weight: bold; color: var(--secondary-color); }
+#items-table .item-total { font-weight: bold; color: var(--danger-color); }
 #review-details {
     padding: 15px;
     background: var(--light-gray);
