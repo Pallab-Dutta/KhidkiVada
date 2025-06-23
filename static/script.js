@@ -699,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const price = parseFloat(client[itemName] || 0);
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td data-label="Item">${itemName}</td>
+                    <td data-label="Item" class="item-header">${itemName}</td>
                     <td data-label="Price (₹)"><input type="number" class="item-price" value="${price.toFixed(2)}" step="0.01"></td>
                     <td data-label="Quantity"><input type="number" class="item-quantity" data-name="${itemName}" value="0" min="0"></td>
                     <td data-label="Total (₹)" class="item-total">₹0.00</td>

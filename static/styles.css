@@ -356,6 +356,10 @@ body {
   bottom: 5px;
 }
 
+#items-table .item-header {
+  background-color: red;
+}
+
 #items-table .item-total { font-weight: bold; color: var(--primary-color); }
 #review-details {
     padding: 15px;
