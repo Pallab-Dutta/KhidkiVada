@@ -1,8 +1,11 @@
 /* --- General Setup & Mobile-First Base Styles --- */
 :root {
     --header-color: #34495e;
+    --footer-color: #b3ac9e;
     --button1-color: #d2691e;
-    --button2-color: #f5deb3;
+    --button1d-color: #b35919;
+    --button2-color: #3b777c;
+    --button2d-color: #306166;
     --primary-color: #3498db;
     --secondary-color: #7f8c8d;
     --danger-color: #e74c3c;
@@ -35,6 +38,7 @@ body {
 
 .page {
     animation: fadeIn 0.4s ease-in-out;
+    margin-bottom: 50px;
 }
 
 @keyframes fadeIn {
@@ -51,7 +55,7 @@ body {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: white;
+    background-color: var(--footer-color);
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
     height: 60px;
     z-index: 1000;
@@ -88,11 +92,11 @@ body {
     text-align: center;
     transition: background-color 0.2s;
 }
-.btn:active { background-color: var(--dark-gray); }
-.btn:hover { background-color: var(--dark-gray); }
-.btn:disabled { background-color: var(--dark-gray); cursor: not-allowed; }
-.btn-secondary { background-color: var(--secondary-color); }
-.btn-secondary:hover { background-color: #95a5a6; }
+.btn:active { background-color: var(--button1d-color); }
+.btn:hover { background-color: var(--button1d-color); }
+.btn:disabled { background-color: var(--button1d-color); cursor: not-allowed; }
+.btn-secondary { background-color: var(--button2-color); }
+.btn-secondary:hover { background-color: var(--button2d-color); }
 
 .form-group { margin-bottom: 20px; }
 .form-group label {
@@ -424,7 +428,7 @@ body {
 
 .global-nav {
         display: flex; /* Show desktop nav */
-        background-color: var(--dark-gray);
+        background-color: var(--header-color);
         color: white;
         padding: 0 40px;
 	justify-content: center;
