@@ -67,11 +67,11 @@ body {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: var(--secondary-color);
+    color: var(--text-color);
     flex-grow: 1;
     height: 100%;
 }
-.bottom-nav .nav-link.active { color: var(--text-color); font-weight: bold; }
+.bottom-nav .nav-link.active { color: black; font-weight: bold; }
 .bottom-nav .nav-link svg { width: 24px; height: 24px; }
 .bottom-nav .nav-link span { font-size: 12px; margin-top: 4px; }
 .desktop-nav { display: none; } /* Hide on mobile */
