@@ -615,7 +615,20 @@ document.addEventListener('DOMContentLoaded', () => {
     		    if (!orderResponse.ok) throw new Error('Failed to refresh orders list.');
     		    appState.orders = await orderResponse.json();
     		    renderOrders(appState.orders, 'dashboard-orders-list');
-                } catch (error) {
+		    
+		    // Refresh the history dashboard
+		    const startDate = document.getElementById('start-date').value;
+                    const endDate = document.getElementById('end-date').value;
+
+                    const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
+                    	method: 'GET',
+                    	credentials: 'omit'
+                    });
+                    if (!response.ok) throw new Error('Failed to fetch order history');
+               	    const orders = await response.json();
+                    renderOrders(orders, 'history-orders-list');
+                
+		} catch (error) {
                     alert(`Error: ${error.message}`);
                 } finally {
                     confirmBtn.disabled = false;
