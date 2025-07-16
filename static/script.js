@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'https://myflaskapi.loca.lt';
+    const API_BASE_URL = 'https://khidkivada-backend.onrender.com';
     const appContainer = document.getElementById('app-container');
     const globalNav = document.getElementById('global-nav');
     const bottomNav = document.getElementById('bottom-nav');
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="order-card status-${order.status}" data-order-id="${order.id}">
                 <div class="card-summary">
                     <div class="summary-info">
-                        <h3>${order.client.Name}</h3>
+                        <h3>${order.client.Name.replace(/\d+$/, '').trim()}</h3>
                         <p class="due">Due: ₹${order.totals.due.toFixed(2)}</p>
                     </div>
                     <div class="summary-status">
@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card-details">
                     <p><strong>Order ID:</strong> #${order.id}</p>
                     <p><strong>Date:</strong> ${order.date}</p>
+		    <p><strong>Batch No:</strong> ${order.batch_no}</p>
                     <p><strong>Client Type:</strong> ${order.client.type}</p>
                     <p><strong>Items:</strong> ${order.items_summary}</p>
                     <div class="totals-grid">
@@ -224,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: document.getElementById('client-type').value,
                 name: document.getElementById('client-name').value,
                 address: document.getElementById('client-address').value,
+		state: document.getElementById('client-state').value,
+		gstn: document.getElementById('client-gstn').value,
                 prices: {
                     '15 kg': parseFloat(document.getElementById('price-15kg').value),
                     '1 kg': parseFloat(document.getElementById('price-1kg').value),
@@ -367,17 +370,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Static company data (you can move this to a config file)
             const companyInfo = {
                 firmName: "VAZE BANDHU FOOD PRODUCTS",
-                address: "421, Kangwai Tal. Dapoli, Dist. Ratnagiri.",
+                address: "421, Pednekar Wadi, Kangwai, Tal: Dapoli, Dist. Ratnagiri,\nMaharashtra, PIN Code: 415712",
                 phoneNumbers: ["9405960012", "9420133021"],
                 subjectTo: "Dapoli Jurisdiction",
                 gstn: "27ABWPV2404N1ZV",
                 fssaiLicNo: "11521025000371",
+		MSMENo: "UDYAM-MH-28-0000198",
                 manufacturerOf: "Khidki vada Masala",
                 hsnCode: "20049000",
                 bankName: "Union Bank of India, Dapoli Branch",
                 accountNo: "611301010050094",
                 ifscCode: "UBIN0561134",
-                footerText: "For Vaze Bandhu Food Products"
+                footerText: "For Vaze Bandhu Food Products",
+		signatory: "Authorised Signatory: _______________"
             };
 
 	    // Helper function to convert amount to words
@@ -431,31 +436,33 @@ document.addEventListener('DOMContentLoaded', () => {
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
             doc.text(companyInfo.address, 105, 26, { align: 'center' });
-            doc.text(`Phone: ${companyInfo.phoneNumbers.join(', ')}`, 105, 30, { align: 'center' });
-            doc.text(`Subject to: ${companyInfo.subjectTo}`, 105, 34, { align: 'center' });
+            doc.text(`Phone: ${companyInfo.phoneNumbers.join(', ')}`, 105, 34, { align: 'center' });
+            doc.text(`Subject to: ${companyInfo.subjectTo}`, 105, 38, { align: 'center' });
 
             // --- Company & Invoice Details ---
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            doc.text('TAX INVOICE', 20, 45);
+            doc.text('TAX INVOICE', 20, 49);
 
             doc.setFontSize(9);
             doc.setFont('helvetica', 'normal');
-            doc.text(`GSTN: ${companyInfo.gstn}`, 20, 50);
-            doc.text(`FSSAI Lic. no.: ${companyInfo.fssaiLicNo}`, 20, 54);
-            doc.text(`Manufacturer of: ${companyInfo.manufacturerOf}`, 20, 58);
+            doc.text(`GSTN: ${companyInfo.gstn}`, 20, 54);
+            doc.text(`FSSAI Lic. no.: ${companyInfo.fssaiLicNo}`, 20, 58);
+	    doc.text(`MSME no.: ${companyInfo.MSMENo}`, 20, 62);
+            doc.text(`Manufacturer of: ${companyInfo.manufacturerOf}`, 20, 66);
 
             // Invoice specific details on the right
-            doc.text(`Invoice No.: ${order.id || 'N/A'}`, pageWidth-20, 50, { align: 'right' });
-            doc.text(`Date: ${formatDate(order.date)}`, pageWidth-20, 54, { align: 'right' });
-            doc.text(`Batch No.: ${order.batchNo || 'N/A'}`, pageWidth-20, 58, { align: 'right' });
-            doc.text(`HSN Code: ${companyInfo.hsnCode}`, pageWidth-20, 62, { align: 'right' });
+            doc.text(`Invoice No.: ${order.id || 'N/A'}`, pageWidth-20, 54, { align: 'right' });
+            doc.text(`Date: ${formatDate(order.date)}`, pageWidth-20, 58, { align: 'right' });
+            doc.text(`Batch No.: ${order.batch_no || 'N/A'}`, pageWidth-20, 62, { align: 'right' });
+            doc.text(`HSN Code: ${companyInfo.hsnCode}`, pageWidth-20, 66, { align: 'right' });
 
             // --- Customer Details ---
             doc.setFontSize(9);
             doc.setFont('helvetica', 'bold');
-            doc.text(`Name: ${order.client.Name || '____________________'}`, 20, 70);
-            doc.text(`Address: ${order.client.Location || '____________________'}`, 20, 74);
+            //doc.text(`Name: ${order.client.Name || '____________________'}`, 20, 70);
+            doc.text(`M/s: ${order.client.Name.replace(/\d+$/, '').trim() || '____________________'} (GST No: ${order.client["GST No"] || '________________'})`, 20, 82);
+            doc.text(`Address: ${order.client.Location || '____________________'}`, 20, 86);
 
             // --- Items Table ---
             const tableData = [
@@ -477,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    const tableLeftMargin = (pageWidth - totalTableWidth) / 2;
             // Draw the table using autoTable plugin
             doc.autoTable({
-                startY: 80,
+                startY: 90,
                 head: [tableData[0]],
                 body: tableData.slice(1),
 		tableWidth: 'auto',
@@ -513,29 +520,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Tax Breakdown ---
             doc.setFontSize(9);
             doc.setFont('helvetica', 'normal');
-            doc.text(`CGST: 6%`, pageWidth-20, finalY, {align: 'right'});
-            doc.text(`SGST: 6%`, pageWidth-20, finalY + 5, {align: 'right'});
+            doc.text(`CGST  (6%): ${typeof order.totals.cgst === 'number' ? order.totals.cgst.toFixed(2) : 'N/A'}`, pageWidth-50, finalY, {align: 'right'});
+            doc.text(`SGST  (6%): ${typeof order.totals.sgst === 'number' ? order.totals.sgst.toFixed(2) : 'N/A'}`, pageWidth-50, finalY + 5, {align: 'right'});
+	    doc.text(`IGST (12%): ${typeof order.totals.igst === 'number' ? order.totals.igst.toFixed(2) : 'N/A'}`, pageWidth-50, finalY + 10, {align: 'right'});
 
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            doc.text(`Total: INR ${order.totals.grandTotal.toFixed(2)} only`, pageWidth-20, finalY + 10, {align: 'right'});
+            doc.text(`Total: INR ${order.totals.grandTotal.toFixed(2)} only`, pageWidth-50, finalY + 20, {align: 'right'});
 
             // --- Amount in Words ---
             doc.setFontSize(9);
             doc.setFont('helvetica', 'normal');
-            doc.text(`Amount (in words): ${numberToWords(order.totals.grandTotal)}`, 20, finalY + 20);
+            doc.text(`Amount (in words): ${numberToWords(order.totals.grandTotal)}`, 20, finalY + 30);
 
             // --- Bank Details ---
-            doc.text(companyInfo.bankName, 20, finalY + 30);
-            doc.text(`Current A/c No. : ${companyInfo.accountNo}`, 20, finalY + 35);
-            doc.text(`IFSC : ${companyInfo.ifscCode}`, 20, finalY + 40);
-            doc.text(`Credit Period : ___________ days only`, 20, finalY + 50);
+            doc.text(companyInfo.bankName, 20, finalY + 40);
+            doc.text(`Current A/c No. : ${companyInfo.accountNo}`, 20, finalY + 45);
+            doc.text(`IFSC : ${companyInfo.ifscCode}`, 20, finalY + 50);
+            doc.text(`Credit Period : ___________ days only`, 20, finalY + 60);
 
             // --- Signature Line ---
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            doc.text(companyInfo.footerText, pageWidth-20, 270, { align: 'right' });
-            doc.line(pageWidth-75, 272, pageWidth-20, 272);
+            doc.text(companyInfo.footerText, pageWidth-20, 256, { align: 'right' });
+            doc.line(pageWidth-75, 260, pageWidth-20, 260);
+	    doc.text(companyInfo.signatory, pageWidth-20, 278, { align: 'right' });
 
             // Save the PDF with a dynamic filename
             const fileName = `Invoice_${order.id || 'new'}_${formatDate(order.date)}.pdf`;
@@ -628,6 +637,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const backToStep1Btn = document.getElementById('back-to-step-1');
         const backToStep2Btn = document.getElementById('back-to-step-2');
         const orderDateInput = document.getElementById('order-date');
+	const batchNoInput = document.getElementById('batch-no');
         
         const items = [
             { name: '15 kg', price: 1575.00 },
@@ -727,6 +737,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	document.getElementById('next-to-step-3')?.addEventListener('click', () => {
             appState.currentOrder.date = orderDateInput.value;
+	    appState.currentOrder.batchNo = batchNoInput.value;
             appState.currentOrder.items = [];
             document.querySelectorAll('#items-table tbody tr').forEach(row => {
                 const quantityInput = row.querySelector('.item-quantity');
@@ -747,23 +758,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const renderReviewDetails = () => {
             const reviewContainer = document.getElementById('review-details');
             let subtotal = appState.currentOrder.items.reduce((acc, item) => acc + item.total, 0);
-            const cgst = subtotal * 0.06;
-            const sgst = subtotal * 0.06;
-            const grandTotal = subtotal + cgst + sgst;
+	    let cgst, sgst, igst, grandTotal;
+	    if (appState.currentOrder.client.State === 'Maharashtra') {
+		console.log("Intra state");
+                cgst = subtotal * 0.06;
+                sgst = subtotal * 0.06;
+                igst = 'N/A';
+                grandTotal = subtotal + cgst + sgst;
+            } else {
+                console.log("Inter state");
+                cgst = 'N/A';
+                sgst = 'N/A';
+                igst = subtotal * 0.12;
+                grandTotal = subtotal + igst;
+            }
 
-            appState.currentOrder.totals = { subtotal, cgst, sgst, grandTotal };
+            appState.currentOrder.totals = { subtotal, cgst, sgst, igst, grandTotal };
             
             reviewContainer.innerHTML = `
-                <p><strong>Client:</strong> ${appState.currentOrder.client.Name}</p>
+                <p><strong>Client:</strong> ${appState.currentOrder.client.Name.replace(/\d+$/, '').trim()}</p>
                 <p><strong>Date:</strong> ${appState.currentOrder.date}</p>
+		<p><strong>Batch No:</strong> ${appState.currentOrder.batchNo}</p>
                 <h4>Items:</h4>
                 <ul>
                     ${appState.currentOrder.items.map(i => `<li>${i.name} (x${i.quantity}) - ₹${i.total.toFixed(2)}</li>`).join('')}
                 </ul>
                 <hr>
                 <p><strong>Subtotal:</strong> ₹${subtotal.toFixed(2)}</p>
-                <p><strong>CGST (6%):</strong> ₹${cgst.toFixed(2)}</p>
-                <p><strong>SGST (6%):</strong> ₹${sgst.toFixed(2)}</p>
+                <p><strong>CGST (6%):</strong> ${typeof cgst === 'number' ? `₹${cgst.toFixed(2)}` : 'N/A'}</p>
+                <p><strong>SGST (6%):</strong> ${typeof sgst === 'number' ? `₹${sgst.toFixed(2)}` : 'N/A'}</p>
+		<p><strong>SGST (12%):</strong> ${typeof igst === 'number' ? `₹${igst.toFixed(2)}` : 'N/A'}</p>
                 <h4><strong>Total:</strong> ₹${grandTotal.toFixed(2)}</h4>
             `;
         };
@@ -859,13 +883,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	    // Invoice specific details on the right
 	    doc.text(`Invoice No.: ${order.id || 'N/A'}`, 100, 50);
 	    doc.text(`Date: ${formatDate(order.date)}`, 100, 54);
-	    doc.text(`Batch No.: ${order.batchNo || 'N/A'}`, 100, 58);
+	    doc.text(`Batch No.: ${order.batch_no || 'N/A'}`, 100, 58);
 	    doc.text(`HSN Code: ${companyInfo.hsnCode}`, 100, 62);
 
 	    // --- Customer Details ---
 	    doc.setFontSize(9);
 	    doc.setFont('helvetica', 'bold');
-	    doc.text(`M/s: ${order.client.Name || '____________________'}`, 20, 70);
+	    //doc.text(`M/s: ${order.client.Name || '____________________'}`, 20, 70);
+	    doc.text(`M/s: ${order.client.Name || '____________________'} (GST No: ${order.client["GST No"] || '________________'})`, 20, 70);
 	    doc.text(`Address: ${order.client.Location || '____________________'}`, 20, 74);
 
 	    // --- Items Table ---
