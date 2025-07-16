@@ -1,5 +1,8 @@
 /* --- General Setup & Mobile-First Base Styles --- */
 :root {
+    --header-color: #34495e;
+    --button1-color: #d2691e;
+    --button2-color: #f5deb3;
     --primary-color: #3498db;
     --secondary-color: #7f8c8d;
     --danger-color: #e74c3c;
@@ -116,16 +119,19 @@ body {
 
 .login-header {
     max-width: 400px;
-    background-color: var(--dark-gray);
+    background-color: var(--header-color);
     border: none;
     text-align: center;
-    margin-bottom: 25px;
-    color: var(--light-gray);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    color: var(--button1-color);
 }
 
 .login-container {
     max-width: 400px;
-    margin: 50px auto;
+    margin-left: auto;
+    margin-right: auto;
     padding: 20px;
     background: white;
     border-radius: 8px;
