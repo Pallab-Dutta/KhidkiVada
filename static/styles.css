@@ -380,10 +380,10 @@ body {
 #items-table .item-header {
   font-weight: bold;
   color: #fff;
-  background-color: var(--dark-gray);
+  background-color: var(--header-color);
 }
 
-#items-table .item-total { font-weight: bold; color: var(--danger-color); }
+#items-table .item-total { font-weight: bold; color: var(--button1-color); }
 #review-details {
     padding: 15px;
     background: var(--light-gray);
