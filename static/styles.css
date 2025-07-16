@@ -8,9 +8,9 @@
     --button2d-color: #306166;
     --primary-color: #3498db;
     --secondary-color: #7f8c8d;
-    --danger-color: #e74c3c;
-    --success-color: #2ecc71;
-    --warning-color: #f39c12;
+    --danger-color: #ab412e;
+    --success-color: #458a04;
+    --warning-color: #d2691e;
     --light-gray: #f4f6f9;
     --dark-gray: #2c3e50;
     --text-color: #333;
@@ -245,6 +245,9 @@ body {
 .summary-info .due {
     font-weight: bold;
     color: var(--danger-color);
+}
+.status-partially_paid .summary-info .due {
+    color: var(--warning-color);
 }
 .status-completed .summary-info .due {
     color: var(--success-color);
