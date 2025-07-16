@@ -624,7 +624,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     	method: 'GET',
                     	credentials: 'omit'
                     });
-                    if (!response.ok) throw new Error('Failed to fetch order history');
+                    if (!response.ok) {
+			throw new Error('Failed to fetch order history');
+		    }
                	    const orders = await response.json();
                     renderOrders(orders, 'history-orders-list');
                 
