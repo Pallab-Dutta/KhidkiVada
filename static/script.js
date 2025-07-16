@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const startDate = document.getElementById('start-date').value;
             const endDate = document.getElementById('end-date').value;
+	    
+	    sessionStorage.setItem('startDate', startDate);
+	    sessionStorage.setItem('endDate', endDate);
     
             try {
                 const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
@@ -617,18 +620,17 @@ document.addEventListener('DOMContentLoaded', () => {
     		    renderOrders(appState.orders, 'dashboard-orders-list');
 		    
 		    // Refresh the history dashboard
-		    const startDate = document.getElementById('start-date').value;
-                    const endDate = document.getElementById('end-date').value;
-
-                    const response = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
-                    	method: 'GET',
-                    	credentials: 'omit'
+		    const startDate = sessionStorage.getItem('startDate');
+                    const endDate = sessionStorage.getItem('endDate');
+		    const historyResponse = await fetch(`${API_BASE_URL}/api/orders/history?start_date=${startDate}&end_date=${endDate}`, {
+                        method: 'GET',
+                        credentials: 'omit'
                     });
-                    if (!response.ok) {
-			throw new Error('Failed to fetch order history');
-		    }
-               	    const orders = await response.json();
-                    renderOrders(orders, 'history-orders-list');
+                    if (!historyResponse.ok) {
+                        throw new Error('Failed to fetch order history');
+                    }
+                    const historders = await historyResponse.json();
+                    renderOrders(historders, 'history-orders-list');
                 
 		} catch (error) {
                     alert(`Error: ${error.message}`);
