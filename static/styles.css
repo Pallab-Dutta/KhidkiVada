@@ -142,6 +142,27 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.password-input-wrapper {
+    position: relative;
+}
+
+.password-input-wrapper input {
+    padding-right: 40px; /* Make space for the icon */
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Adjust as needed for vertical alignment */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--secondary-color);
+    font-size: 24px; /* Adjust size as needed */
+}
+
+/* Ensure material icons font is loaded */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 /* .login-container h1 { text-align: center; margin-bottom: 25px; color: var(--light-gray); } */
 
 /* --- Dashboard & Order Cards --- */

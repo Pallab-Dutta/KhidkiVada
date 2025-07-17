@@ -23,6 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const openMenu = () => menuModal.classList.add('show');
     const closeMenu = () => menuModal.classList.remove('show');
 
+    // --- NEW: PASSWORD TOGGLE LOGIC ---
+    const setupPasswordToggles = () => {
+        document.querySelectorAll('.password-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const passwordInput = toggle.previousElementSibling; // The input field is the previous sibling
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    toggle.textContent = 'visibility'; // Change icon to 'visible'
+                } else {
+                    passwordInput.type = 'password';
+                    toggle.textContent = 'visibility_off'; // Change icon to 'hidden'
+                }
+            });
+        });
+    };
+
     // --- ROUTING & PAGE LOADING ---
     const loadPage = async (page) => {
         // Simple protection against trying to access pages when not logged in
