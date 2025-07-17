@@ -65,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.toggle('active', link.dataset.page === appState.currentPage);
         });
 
+	// Always set up password toggles when a page is initialized
+        setupPasswordToggles();
+
         switch (appState.currentPage) {
             case 'login':
                 setupLoginPage();
