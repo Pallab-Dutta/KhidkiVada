@@ -160,9 +160,6 @@ body {
     font-size: 24px; /* Adjust size as needed */
 }
 
-/* Ensure material icons font is loaded */
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
 /* .login-container h1 { text-align: center; margin-bottom: 25px; color: var(--light-gray); } */
 
 /* --- Dashboard & Order Cards --- */
