@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="card-details">
-                    <p><strong>Order ID:</strong> #${order.id}</p>
+                    <p><strong>Order ID:</strong> ${order.id}</p>
                     <p><strong>Date:</strong> ${order.date}</p>
 		    <p><strong>Batch No:</strong> ${order.batch_no}</p>
                     <p><strong>Client Type:</strong> ${order.client.type}</p>
@@ -581,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!order || !modal) return;
 
         document.getElementById('update-order-id').value = orderId;
-        document.getElementById('modal-order-id').textContent = `#${orderId}`;
+        document.getElementById('modal-order-id').textContent = `${orderId}`;
         document.getElementById('modal-total-amount').textContent = `₹${order.totals.grandTotal.toFixed(2)}`;
         document.getElementById('modal-due-amount').textContent = `₹${order.totals.due.toFixed(2)}`;
         document.getElementById('newly-paid-amount').value = '';
