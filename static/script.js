@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 accountNo: "611301010050094",
                 ifscCode: "UBIN0561134",
                 footerText: "For Vaze Bandhu Food Products",
-		signatory: "Authorised Signatory: _______________"
+		signatory: "Authorised Signatory: Mrs. Amita Nilesh Vaze"
             };
 
 	    // Helper function to convert amount to words
@@ -482,9 +482,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Customer Details ---
             doc.setFontSize(9);
             doc.setFont('helvetica', 'bold');
+	    const isSundryClient = order.client.Name === 'Other Sundry Clients';
             //doc.text(`Name: ${order.client.Name || '____________________'}`, 20, 70);
-            doc.text(`M/s: ${order.client.Name.replace(/\d+$/, '').trim() || '____________________'} (GST No: ${order.client["GST No"] || '________________'})`, 20, 82);
-            doc.text(`Address: ${order.client.Location || '____________________'}`, 20, 86);
+            doc.text(`M/s: ${isSundryClient ? '_________________________' : order.client.Name.replace(/\d+$/, '').trim()} (GST No: ${order.client["GST No"] || '________________'})`, 20, 82);
+            doc.text(`Address: ${isSundryClient ? '_________________________' : order.client.Location}`, 20, 86);
 
             // --- Items Table ---
             const tableData = [
@@ -823,7 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p><strong>Subtotal:</strong> ₹${subtotal.toFixed(2)}</p>
                 <p><strong>CGST (6%):</strong> ${typeof cgst === 'number' ? `₹${cgst.toFixed(2)}` : 'N/A'}</p>
                 <p><strong>SGST (6%):</strong> ${typeof sgst === 'number' ? `₹${sgst.toFixed(2)}` : 'N/A'}</p>
-		<p><strong>SGST (12%):</strong> ${typeof igst === 'number' ? `₹${igst.toFixed(2)}` : 'N/A'}</p>
+		<p><strong>IGST (12%):</strong> ${typeof igst === 'number' ? `₹${igst.toFixed(2)}` : 'N/A'}</p>
                 <h4><strong>Total:</strong> ₹${grandTotal.toFixed(2)}</h4>
             `;
         };
